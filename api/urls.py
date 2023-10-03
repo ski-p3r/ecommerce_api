@@ -20,12 +20,12 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('shop/', include('shop.urls')),
     path('carts/', include('cart.urls')),
+    path('wishlists/', include('wishlist.urls')),
     path('orders/', include('order.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
