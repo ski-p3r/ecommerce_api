@@ -19,6 +19,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
     items = serializers.SerializerMethodField()
+    status = serializers.CharField(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
     def get_items(self, obj):
         order_items = OrderItem.objects.filter(order=obj)
         return OrderItemSerializer(order_items, many=True).data

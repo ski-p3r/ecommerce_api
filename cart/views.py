@@ -1,17 +1,18 @@
 from rest_framework import status
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .models import Cart, CartItem
 from .serializers import (CartCreateSerializer, CartItemSerializer, CartSerializer,
     CreateCartItemSerializer, UpdateCartItemSerializer)
 
-class CartViewSet(ModelViewSet):
+class CartViewSet(CreateModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = Cart.objects.all()
     
     def get_serializer_class(self):
-        if self.action == 'create':
-            return CartCreateSerializer
-        return CartSerializer
+        if self.action == 'retrieve':
+            return CartSerializer
+        return CartCreateSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data={})
@@ -21,7 +22,7 @@ class CartViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
-class CartItemViewSet(ModelViewSet):
+class CartItemViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
 
     def get_serializer_class(self):
         if self.action == 'create':
