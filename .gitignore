@@ -1,2 +1,11 @@
 env
 .env
+automotive_product_seed.py
+beauty_products_seed.py
+books_and_media_product_seed.py
+category_seed.py
+clothing_product_seed.py
+electronics_product_seeed.py
+home_and_kitchen_product_seed.py
+sport_and_outdor_product_seed.py
+toys_and_games_product_seed.py
