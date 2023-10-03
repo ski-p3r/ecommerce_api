@@ -65,7 +65,6 @@ class IsReviewCreatorForUpdate(permissions.BasePermission):
         return obj.user == request.user
 
 class ReviewViewSet(ModelViewSet):
-    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
     def get_permissions(self):
@@ -80,3 +79,8 @@ class ReviewViewSet(ModelViewSet):
         if product_pk is not None:
             return {'product_pk': product_pk, 'user': self.request.user}
         return {}
+    
+    def get_queryset(self):
+        product_pk = self.kwargs.get('product_pk')
+        if product_pk is not None:
+            return Review.objects.filter(product_id=product_pk)

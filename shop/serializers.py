@@ -60,13 +60,16 @@ class SimpleProductSerializer(serializers.ModelSerializer):
         fields = ['name', 'price']
 
 class SimpleUserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(read_only=True)
+    last_name = serializers.CharField(read_only=True)
+    email = serializers.EmailField(read_only=True)
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
 
 class ReviewSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    user = SimpleUserSerializer()
+    user = SimpleUserSerializer(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
