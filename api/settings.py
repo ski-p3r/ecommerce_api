@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'djoser',
     'authentication',
     'shop',
+    'cart',
 ]
 
 MIDDLEWARE = [
