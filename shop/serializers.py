@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Category, Product
+from .models import Category, Product, Review
+from authentication.models import User
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,3 +58,26 @@ class SimpleProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['name', 'price']
+
+class SimpleUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    user = SimpleUserSerializer()
+    updated_at = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['id', 'user', 'title', 'comment', 'updated_at', 'rating']
+
+
+    def create(self, validated_data):
+        product_pk = self.context['product_pk']
+        user = self.context['user']
+
+        review = Review.objects.create(product_id=product_pk, user=user, **validated_data)
+
+        return review

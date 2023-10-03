@@ -9,12 +9,12 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Ecommerce API",
       default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
+      description="Ecommerce API",
+      terms_of_service="https://www.ecommerce_api.com/policies/terms/",
+      contact=openapi.Contact(email="contact@ecommerce_api.local"),
+      license=openapi.License(name="API License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
